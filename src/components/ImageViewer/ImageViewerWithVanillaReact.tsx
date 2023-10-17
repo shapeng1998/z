@@ -6,11 +6,15 @@ export interface Point {
   y: number
 }
 
-function getCurrentDirection(offset: Point) {
+type Axis = 'x' | 'y' | null
+
+function getCurrentAxis(offset: Point, threshold = 10): Axis {
   const absDx = Math.abs(offset.x)
   const absDy = Math.abs(offset.y)
 
-  return absDx > absDy ? 'x' : 'y'
+  if (absDx > absDy && absDx > threshold) return 'x'
+  if (absDy > absDx && absDy > threshold) return 'y'
+  return null
 }
 
 export const ImageViewerWithVanillaReact = ({
@@ -21,11 +25,14 @@ export const ImageViewerWithVanillaReact = ({
   /** 非拖拽状态下元素的位置偏移 */
   const posRef = useRef<Point>({ x: 0, y: 0 })
 
-  /** 拖拽开始的指针坐标 */
+  /** 拖拽起始点坐标 */
   const initialRef = useRef<Point>({ x: 0, y: 0 })
 
   /** 是否正在拖拽 */
   const draggingRef = useRef(false)
+
+  /** 当前拖拽的方向 */
+  const axisRef = useRef<Axis>(null)
 
   const start: PointerEventHandler = (e) => {
     e.preventDefault()
@@ -41,7 +48,8 @@ export const ImageViewerWithVanillaReact = ({
       x: e.clientX - initialRef.current.x,
       y: e.clientY - initialRef.current.y,
     }
-    if (getCurrentDirection(offset) !== 'y') return
+    if (!axisRef.current) axisRef.current = getCurrentAxis(offset)
+    if (axisRef.current !== 'y') return
 
     setTranslateY(offset.y + posRef.current.y)
   }
@@ -50,6 +58,7 @@ export const ImageViewerWithVanillaReact = ({
     initialRef.current = { x: 0, y: 0 }
     draggingRef.current = false
     posRef.current.y = translateY
+    axisRef.current = null
   }
 
   return (
