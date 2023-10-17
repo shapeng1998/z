@@ -27,17 +27,15 @@ export const ImageViewerWithUseGesture = ({
   )
 
   return (
-    <div
-      style={{
-        transform: `translateY(${translateY}px)`,
-      }}
-      {...bind()}
-      className="grid h-screen w-screen place-items-center"
-    >
+    <div className="grid h-screen w-screen place-items-center">
       <img
+        {...bind()}
         className="w-full touch-none rounded-xl"
         src={src}
         alt="Lorem Picsum"
+        style={{
+          transform: `translateY(${translateY}px)`,
+        }}
       />
     </div>
   )
