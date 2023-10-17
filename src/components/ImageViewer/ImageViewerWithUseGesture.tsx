@@ -1,19 +1,20 @@
 import { useDrag } from '@use-gesture/react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { ImageViewerProps } from './ImageViewer'
+import { Point } from './ImageViewerWithVanillaReact'
 
 export const ImageViewerWithUseGesture = ({
   src,
 }: Omit<ImageViewerProps, 'type'>) => {
   const [translateY, setTranslateY] = useState(0)
-  const [y, setY] = useState(0)
+  const axisRef = useRef<Point>({ x: 0, y: 0 })
 
   const bind = useDrag(
     ({ down, movement: [, my] }) => {
       if (down) {
-        setTranslateY(my + y)
+        setTranslateY(my + axisRef.current.y)
       } else {
-        setY(translateY)
+        axisRef.current.y = translateY
       }
     },
     {
