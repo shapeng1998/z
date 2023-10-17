@@ -7,14 +7,14 @@ export const ImageViewerWithUseGesture = ({
   src,
 }: Omit<ImageViewerProps, 'type'>) => {
   const [translateY, setTranslateY] = useState(0)
-  const axisRef = useRef<Point>({ x: 0, y: 0 })
+  const posRef = useRef<Point>({ x: 0, y: 0 })
 
   const bind = useDrag(
     ({ down, movement: [, my] }) => {
       if (down) {
-        setTranslateY(my + axisRef.current.y)
+        setTranslateY(my + posRef.current.y)
       } else {
-        axisRef.current.y = translateY
+        posRef.current.y = translateY
       }
     },
     {

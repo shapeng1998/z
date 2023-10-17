@@ -17,7 +17,7 @@ export const ImageViewerWithVanillaReact = ({
   src,
 }: Omit<ImageViewerProps, 'type'>) => {
   const [translateY, setTranslateY] = useState(0)
-  const axisRef = useRef<Point>({ x: 0, y: 0 })
+  const posRef = useRef<Point>({ x: 0, y: 0 })
   const initialRef = useRef<Point>({ x: 0, y: 0 })
   const draggingRef = useRef(false)
 
@@ -37,13 +37,13 @@ export const ImageViewerWithVanillaReact = ({
     }
     if (getCurrentDirection(offset) !== 'y') return
 
-    setTranslateY(offset.y + axisRef.current.y)
+    setTranslateY(offset.y + posRef.current.y)
   }
 
   const end: PointerEventHandler = () => {
     initialRef.current = { x: 0, y: 0 }
     draggingRef.current = false
-    axisRef.current.y = translateY
+    posRef.current.y = translateY
   }
 
   return (
