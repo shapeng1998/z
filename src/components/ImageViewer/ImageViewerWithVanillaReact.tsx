@@ -17,8 +17,14 @@ export const ImageViewerWithVanillaReact = ({
   src,
 }: Omit<ImageViewerProps, 'type'>) => {
   const [translateY, setTranslateY] = useState(0)
+
+  /** 非拖拽状态下元素的位置偏移 */
   const posRef = useRef<Point>({ x: 0, y: 0 })
+
+  /** 拖拽开始的指针坐标 */
   const initialRef = useRef<Point>({ x: 0, y: 0 })
+
+  /** 是否正在拖拽 */
   const draggingRef = useRef(false)
 
   const start: PointerEventHandler = (e) => {
