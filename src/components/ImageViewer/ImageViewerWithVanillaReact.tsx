@@ -1,5 +1,6 @@
 import { useState, useRef, type PointerEventHandler } from 'react'
 import { ImageViewerProps } from './ImageViewer'
+import { cn } from '../../utils'
 
 export interface Point {
   x: number
@@ -21,6 +22,7 @@ export const ImageViewerWithVanillaReact = ({
   src,
 }: Omit<ImageViewerProps, 'type'>) => {
   const [translateY, setTranslateY] = useState(0)
+  const [dragging, setDragging] = useState(false)
 
   /** 非拖拽状态下元素的位置偏移 */
   const posRef = useRef<Point>({ x: 0, y: 0 })
@@ -31,21 +33,21 @@ export const ImageViewerWithVanillaReact = ({
   /** 拖拽起始点坐标 */
   const initialRef = useRef<Point>({ x: 0, y: 0 })
 
-  /** 是否正在拖拽 */
-  const draggingRef = useRef(false)
-
   /** 当前拖拽的方向 */
   const axisRef = useRef<Axis>(null)
+
+  /** 当前拖拽元素的 pointerId */
+  const pointerIdRef = useRef<number | null>(null)
 
   const start: PointerEventHandler = (e) => {
     e.preventDefault()
     e.currentTarget.setPointerCapture(e.pointerId)
+    pointerIdRef.current = e.pointerId
     initialRef.current = { x: e.clientX, y: e.clientY }
-    draggingRef.current = true
   }
 
   const move: PointerEventHandler = (e) => {
-    if (!draggingRef.current) return
+    if (e.pointerId !== pointerIdRef.current) return
 
     const offset: Point = {
       x: e.clientX - initialRef.current.x,
@@ -54,22 +56,27 @@ export const ImageViewerWithVanillaReact = ({
     if (!axisRef.current) axisRef.current = getCurrentAxis(offset)
     if (axisRef.current !== 'y') return
 
+    if (!dragging) setDragging(true)
     setTranslateY(offset.y + posRef.current.y)
     offsetRef.current = offset
   }
 
   const end: PointerEventHandler = () => {
+    setDragging(false)
     initialRef.current = { x: 0, y: 0 }
-    draggingRef.current = false
     posRef.current.y += offsetRef.current.y
     offsetRef.current = { x: 0, y: 0 }
     axisRef.current = null
+    pointerIdRef.current = null
   }
 
   return (
     <div className="grid h-screen w-screen place-items-center">
       <img
-        className="w-full touch-none rounded-xl"
+        className={cn(
+          'w-full cursor-grab touch-none rounded-xl',
+          dragging && 'cursor-grabbing',
+        )}
         src={src}
         alt="Lorem Picsum"
         onPointerDown={start}
