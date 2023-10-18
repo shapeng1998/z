@@ -10,19 +10,21 @@ export const ImageViewerWithFramerMotion = ({
 
   return (
     <div className="grid h-screen w-screen place-items-center">
-      <motion.img
-        className={cn(
-          'w-full cursor-grab touch-none rounded-xl',
-          dragging && 'cursor-grabbing',
-        )}
-        src={src}
-        alt="Lorem Picsum"
-        drag="y"
-        dragDirectionLock={true}
-        dragMomentum={false}
-        onDragStart={() => setDragging(true)}
-        onDragEnd={() => setDragging(false)}
-      />
+      <div className="grid h-[800px] max-w-sm place-items-center overflow-hidden rounded-xl border-2 border-solid border-slate-200">
+        <motion.img
+          className={cn(
+            'w-full cursor-grab touch-none rounded-xl',
+            dragging && 'cursor-grabbing',
+          )}
+          src={src}
+          alt="Lorem Picsum"
+          drag="y"
+          dragDirectionLock={true}
+          dragMomentum={false}
+          onDragStart={() => setDragging(true)}
+          onDragEnd={() => setDragging(false)}
+        />
+      </div>
     </div>
   )
 }
