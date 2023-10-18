@@ -25,6 +25,9 @@ export const ImageViewerWithVanillaReact = ({
   /** 非拖拽状态下元素的位置偏移 */
   const posRef = useRef<Point>({ x: 0, y: 0 })
 
+  /** 拖拽过程中元素的位置偏移 */
+  const offsetRef = useRef<Point>({ x: 0, y: 0 })
+
   /** 拖拽起始点坐标 */
   const initialRef = useRef<Point>({ x: 0, y: 0 })
 
@@ -52,12 +55,14 @@ export const ImageViewerWithVanillaReact = ({
     if (axisRef.current !== 'y') return
 
     setTranslateY(offset.y + posRef.current.y)
+    offsetRef.current = offset
   }
 
   const end: PointerEventHandler = () => {
     initialRef.current = { x: 0, y: 0 }
     draggingRef.current = false
-    posRef.current.y = translateY
+    posRef.current.y += offsetRef.current.y
+    offsetRef.current = { x: 0, y: 0 }
     axisRef.current = null
   }
 

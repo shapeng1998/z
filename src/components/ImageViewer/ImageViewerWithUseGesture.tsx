@@ -14,7 +14,7 @@ export const ImageViewerWithUseGesture = ({
       if (down) {
         setTranslateY(my + posRef.current.y)
       } else {
-        posRef.current.y = translateY
+        posRef.current.y += my
       }
     },
     {
