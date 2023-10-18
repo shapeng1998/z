@@ -33,18 +33,20 @@ export const ImageViewerWithUseGesture = ({
 
   return (
     <div className="grid h-screen w-screen place-items-center">
-      <img
-        {...bind()}
-        className={cn(
-          'w-full cursor-grab touch-none rounded-xl',
-          dragging && 'cursor-grabbing',
-        )}
-        src={src}
-        alt="Lorem Picsum"
-        style={{
-          transform: `translateY(${translateY}px)`,
-        }}
-      />
+      <div className="grid h-[800px] max-w-sm place-items-center overflow-hidden rounded-xl border-2 border-solid border-slate-200">
+        <img
+          {...bind()}
+          className={cn(
+            'w-full cursor-grab touch-none rounded-xl',
+            dragging && 'cursor-grabbing',
+          )}
+          src={src}
+          alt="Lorem Picsum"
+          style={{
+            transform: `translateY(${translateY}px)`,
+          }}
+        />
+      </div>
     </div>
   )
 }
