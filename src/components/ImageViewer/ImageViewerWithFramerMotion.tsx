@@ -17,6 +17,8 @@ export const ImageViewerWithFramerMotion = ({
             dragging && 'cursor-grabbing',
           )}
           src={src}
+          width="380"
+          height="570"
           alt="Lorem Picsum"
           drag="y"
           dragDirectionLock={true}

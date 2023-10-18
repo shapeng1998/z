@@ -79,6 +79,8 @@ export const ImageViewerWithVanillaReact = ({
             dragging && 'cursor-grabbing',
           )}
           src={src}
+          width="380"
+          height="570"
           alt="Lorem Picsum"
           onPointerDown={start}
           onPointerMove={move}

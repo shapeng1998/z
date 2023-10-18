@@ -41,6 +41,8 @@ export const ImageViewerWithUseGesture = ({
             dragging && 'cursor-grabbing',
           )}
           src={src}
+          width="380"
+          height="570"
           alt="Lorem Picsum"
           style={{
             transform: `translateY(${translateY}px)`,
