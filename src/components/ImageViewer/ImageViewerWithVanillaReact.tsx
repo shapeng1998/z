@@ -36,7 +36,7 @@ export const ImageViewerWithVanillaReact = ({
   /** 当前拖拽的方向 */
   const axisRef = useRef<Axis>(null)
 
-  /** 当前拖拽元素的 pointerId */
+  /** 当前拖拽事件的 `pointerId` */
   const pointerIdRef = useRef<number | null>(null)
 
   const start: PointerEventHandler = (e) => {
