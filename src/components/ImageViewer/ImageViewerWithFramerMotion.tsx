@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { ImageViewerProps } from './ImageViewer'
 import { motion } from 'framer-motion'
+
+import { type ImageViewerProps } from './ImageViewer'
 import { cn } from '../../utils'
 
 export const ImageViewerWithFramerMotion = ({

@@ -7,15 +7,18 @@ export interface ImageViewerProps {
   type: 'vanilla-react' | 'use-gesture' | 'framer-motion'
 }
 
+const ImageViewerComponentMap: Record<
+  ImageViewerProps['type'],
+  typeof ImageViewerWithVanillaReact
+> = {
+  'vanilla-react': ImageViewerWithVanillaReact,
+  'use-gesture': ImageViewerWithUseGesture,
+  'framer-motion': ImageViewerWithFramerMotion,
+}
+
 const ImageViewer = ({ src, type }: ImageViewerProps) => {
-  switch (type) {
-    case 'use-gesture':
-      return <ImageViewerWithUseGesture src={src} />
-    case 'framer-motion':
-      return <ImageViewerWithFramerMotion src={src} />
-    case 'vanilla-react':
-      return <ImageViewerWithVanillaReact src={src} />
-  }
+  const ImageViewerComponent = ImageViewerComponentMap[type]
+  return <ImageViewerComponent src={src} />
 }
 
 export default ImageViewer
