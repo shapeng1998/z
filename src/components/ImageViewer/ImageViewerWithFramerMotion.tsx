@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 
 import { type ImageViewerProps } from './ImageViewer';
@@ -6,6 +6,14 @@ import { cn } from '../../utils';
 
 export const ImageViewerWithFramerMotion = ({ src }: Omit<ImageViewerProps, 'type'>) => {
   const [dragging, setDragging] = useState(false);
+
+  const start = useCallback(() => {
+    setDragging(true);
+  }, []);
+
+  const end = useCallback(() => {
+    setDragging(false);
+  }, []);
 
   return (
     <div className="grid h-screen w-screen place-items-center">
@@ -19,8 +27,8 @@ export const ImageViewerWithFramerMotion = ({ src }: Omit<ImageViewerProps, 'typ
           drag="y"
           dragDirectionLock={true}
           dragMomentum={false}
-          onDragStart={() => setDragging(true)}
-          onDragEnd={() => setDragging(false)}
+          onDragStart={start}
+          onDragEnd={end}
         />
       </div>
     </div>
