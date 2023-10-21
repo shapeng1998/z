@@ -1,21 +1,21 @@
-import { ImageViewerWithUseGesture } from './ImageViewerWithUseGesture'
-import { ImageViewerWithFramerMotion } from './ImageViewerWithFramerMotion'
-import { ImageViewerWithVanillaReact } from './ImageViewerWithVanillaReact'
+import { ImageViewerWithUseGesture } from './ImageViewerWithUseGesture';
+import { ImageViewerWithFramerMotion } from './ImageViewerWithFramerMotion';
+import { ImageViewerWithVanillaReact } from './ImageViewerWithVanillaReact';
 
 export interface ImageViewerProps {
-  src: string
-  type: 'vanilla-react' | 'use-gesture' | 'framer-motion'
+  src: string;
+  type: 'vanilla-react' | 'use-gesture' | 'framer-motion';
 }
+
+const ImageViewerComponentMap: Record<ImageViewerProps['type'], typeof ImageViewerWithVanillaReact> = {
+  'vanilla-react': ImageViewerWithVanillaReact,
+  'use-gesture': ImageViewerWithUseGesture,
+  'framer-motion': ImageViewerWithFramerMotion,
+};
 
 const ImageViewer = ({ src, type }: ImageViewerProps) => {
-  switch (type) {
-    case 'use-gesture':
-      return <ImageViewerWithUseGesture src={src} />
-    case 'framer-motion':
-      return <ImageViewerWithFramerMotion src={src} />
-    case 'vanilla-react':
-      return <ImageViewerWithVanillaReact src={src} />
-  }
-}
+  const ImageViewerComponent = ImageViewerComponentMap[type];
+  return <ImageViewerComponent src={src} />;
+};
 
-export default ImageViewer
+export default ImageViewer;

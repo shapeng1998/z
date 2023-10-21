@@ -1,83 +1,96 @@
-import { useState, useRef, type PointerEventHandler } from 'react'
-import { ImageViewerProps } from './ImageViewer'
-import { cn } from '../../utils'
+import { useState, useRef, type PointerEventHandler, useCallback } from 'react';
+
+import { ImageViewerProps } from './ImageViewer';
+import { cn } from '../../utils';
 
 export interface Point {
-  x: number
-  y: number
+  x: number;
+  y: number;
 }
 
-type Axis = 'x' | 'y' | null
+type Axis = 'x' | 'y' | null;
 
 function getCurrentAxis(offset: Point, threshold = 10): Axis {
-  const absDx = Math.abs(offset.x)
-  const absDy = Math.abs(offset.y)
+  const absDx = Math.abs(offset.x);
+  const absDy = Math.abs(offset.y);
 
-  if (absDx > absDy && absDx > threshold) return 'x'
-  if (absDy > absDx && absDy > threshold) return 'y'
-  return null
+  if (absDx > absDy && absDx > threshold) {
+    return 'x';
+  }
+  if (absDy > absDx && absDy > threshold) {
+    return 'y';
+  }
+  return null;
 }
 
-export const ImageViewerWithVanillaReact = ({
-  src,
-}: Omit<ImageViewerProps, 'type'>) => {
-  const [translateY, setTranslateY] = useState(0)
-  const [dragging, setDragging] = useState(false)
+export const ImageViewerWithVanillaReact = ({ src }: Omit<ImageViewerProps, 'type'>) => {
+  const [dragging, setDragging] = useState(false);
 
-  /** 非拖拽状态下元素的位置偏移 */
-  const posRef = useRef<Point>({ x: 0, y: 0 })
+  /** Position offset when not dragging */
+  const posRef = useRef<Point>({ x: 0, y: 0 });
 
-  /** 拖拽过程中元素的位置偏移 */
-  const offsetRef = useRef<Point>({ x: 0, y: 0 })
+  /** Position offset when dragging */
+  const offsetRef = useRef<Point>({ x: 0, y: 0 });
 
-  /** 拖拽起始点坐标 */
-  const initialRef = useRef<Point>({ x: 0, y: 0 })
+  /** Initial dragging coordinates */
+  const initialRef = useRef<Point>({ x: 0, y: 0 });
 
-  /** 当前拖拽的方向 */
-  const axisRef = useRef<Axis>(null)
+  /** Current dragging axis */
+  const axisRef = useRef<Axis>(null);
 
-  /** 当前拖拽事件的 `pointerId` */
-  const pointerIdRef = useRef<number | null>(null)
+  /** Current dragging event's `pointerId` */
+  const pointerIdRef = useRef<number | null>(null);
 
-  const start: PointerEventHandler = (e) => {
-    e.preventDefault()
-    e.currentTarget.setPointerCapture(e.pointerId)
-    pointerIdRef.current = e.pointerId
-    initialRef.current = { x: e.clientX, y: e.clientY }
-  }
+  const start = useCallback<PointerEventHandler>((e) => {
+    e.preventDefault();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    pointerIdRef.current = e.pointerId;
+    initialRef.current = { x: e.clientX, y: e.clientY };
+  }, []);
 
-  const move: PointerEventHandler = (e) => {
-    if (e.pointerId !== pointerIdRef.current) return
+  const move = useCallback<PointerEventHandler>(
+    (e) => {
+      if (e.pointerId !== pointerIdRef.current) {
+        return;
+      }
 
-    const offset: Point = {
-      x: e.clientX - initialRef.current.x,
-      y: e.clientY - initialRef.current.y,
-    }
-    if (!axisRef.current) axisRef.current = getCurrentAxis(offset)
-    if (axisRef.current !== 'y') return
+      const offset: Point = {
+        x: e.clientX - initialRef.current.x,
+        y: e.clientY - initialRef.current.y,
+      };
+      if (!axisRef.current) {
+        axisRef.current = getCurrentAxis(offset);
+      }
+      if (axisRef.current !== 'y') {
+        return;
+      }
 
-    if (!dragging) setDragging(true)
-    setTranslateY(offset.y + posRef.current.y)
-    offsetRef.current = offset
-  }
+      if (!dragging) {
+        setDragging(true);
+      }
 
-  const end: PointerEventHandler = () => {
-    setDragging(false)
-    initialRef.current = { x: 0, y: 0 }
-    posRef.current.y += offsetRef.current.y
-    offsetRef.current = { x: 0, y: 0 }
-    axisRef.current = null
-    pointerIdRef.current = null
-  }
+      const y = offset.y + posRef.current.y;
+      (e.currentTarget as HTMLElement).style.transform = `translate3d(0, ${y}px, 0)`;
+
+      offsetRef.current = offset;
+    },
+    [dragging],
+  );
+
+  const end = useCallback<PointerEventHandler>(() => {
+    setDragging(false);
+    initialRef.current = { x: 0, y: 0 };
+    posRef.current.y += offsetRef.current.y;
+    offsetRef.current = { x: 0, y: 0 };
+    axisRef.current = null;
+    pointerIdRef.current = null;
+  }, []);
 
   return (
     <div className="grid h-screen w-screen place-items-center">
       <div className="grid h-[800px] max-w-sm place-items-center overflow-hidden rounded-xl border-2 border-solid border-slate-200">
         <img
-          className={cn(
-            'w-full cursor-grab touch-none rounded-xl',
-            dragging && 'cursor-grabbing',
-          )}
+          className={cn('w-full cursor-grab touch-none rounded-xl', dragging && 'cursor-grabbing')}
           src={src}
           width="380"
           height="570"
@@ -86,11 +99,8 @@ export const ImageViewerWithVanillaReact = ({
           onPointerMove={move}
           onPointerUp={end}
           onPointerCancel={end}
-          style={{
-            transform: `translateY(${translateY}px)`,
-          }}
         />
       </div>
     </div>
-  )
-}
+  );
+};

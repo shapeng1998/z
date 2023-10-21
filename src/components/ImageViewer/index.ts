@@ -1,2 +1,2 @@
-export * from './ImageViewer'
-export { default } from './ImageViewer'
+export * from './ImageViewer';
+export { default } from './ImageViewer';
