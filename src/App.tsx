@@ -1,8 +1,8 @@
-import ImageViewer from './components/ImageViewer/ImageViewer'
-import testImage from './assets/img.jpg'
+import ImageViewer from './components/ImageViewer/ImageViewer';
+import testImage from './assets/img.jpg';
 
 function App() {
-  return <ImageViewer src={testImage} type="framer-motion" />
+  return <ImageViewer src={testImage} type="framer-motion" />;
 }
 
-export default App
+export default App;
