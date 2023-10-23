@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import testImage from '@/assets/img.jpg';
+import testImage from '@/assets/test.webp';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ImageViewer, { ImageViewerComponentMap, ImageViewerProps } from '@/components/ImageViewer';
 
