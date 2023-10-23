@@ -1,7 +1,7 @@
 import { useState, useRef, type PointerEventHandler, useCallback } from 'react';
 
 import { ImageViewerProps } from './ImageViewer';
-import { cn } from '../../utils';
+import { cn } from '@/lib/utils';
 
 export interface Point {
   x: number;

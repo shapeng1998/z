@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 
 import { type ImageViewerProps } from './ImageViewer';
-import { cn } from '../../utils';
+import { cn } from '@/lib/utils';
 
 export const ImageViewerWithFramerMotion = ({ src }: Omit<ImageViewerProps, 'type'>) => {
   const [dragging, setDragging] = useState(false);
