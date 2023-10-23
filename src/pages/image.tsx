@@ -4,12 +4,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import ImageViewer, { ImageViewerComponentMap, ImageViewerProps } from '@/components/ImageViewer';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
-  return <div className="grid h-screen w-screen place-items-center">{children}</div>;
+  return <div className="flex h-screen w-screen flex-col items-center justify-center">{children}</div>;
 };
 
 const ImageContainer = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div className="grid h-[800px] max-w-sm place-items-center overflow-hidden rounded-xl border-2 border-solid border-slate-200">
+    <div className="grid h-[800px] max-w-sm place-items-center overflow-hidden rounded-xl border border-solid border-slate-200">
       {children}
     </div>
   );
@@ -30,7 +30,7 @@ export const ImagePage = () => {
         <ImageViewer src={testImage} type={type} />
       </ImageContainer>
       <Select onValueChange={handleTypeValueChange} defaultValue={type}>
-        <SelectTrigger className="absolute bottom-24 left-1/2 w-[180px] -translate-x-1/2">
+        <SelectTrigger className="mt-2 w-[180px]">
           <SelectValue placeholder="Type" />
         </SelectTrigger>
         <SelectContent>
