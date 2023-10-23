@@ -70,7 +70,7 @@ export const ImageViewerWithVanillaReact = ({ src }: Omit<ImageViewerProps, 'typ
       }
 
       const y = offset.y + posRef.current.y;
-      (e.currentTarget as HTMLElement).style.transform = `translate3d(0, ${y}px, 0)`;
+      (e.currentTarget as HTMLElement).style.transform = `translateY(${y}px)`;
 
       offsetRef.current = offset;
     },

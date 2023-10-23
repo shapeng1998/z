@@ -15,7 +15,7 @@ export const ImageViewerWithUseGesture = ({ src }: Omit<ImageViewerProps, 'type'
       if (last) {
         setDragging(false);
       }
-      (currentTarget as HTMLElement).style.transform = `translate3d(0, ${y}px, 0)`;
+      (currentTarget as HTMLElement).style.transform = `translateY(${y}px)`;
     },
     {
       preventDefault: true,

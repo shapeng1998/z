@@ -29,9 +29,9 @@ export const ImagePage = () => {
       <ImageContainer>
         <ImageViewer src={testImage} type={type} />
       </ImageContainer>
-      <Select onValueChange={handleTypeValueChange}>
+      <Select onValueChange={handleTypeValueChange} defaultValue={type}>
         <SelectTrigger className="absolute bottom-24 left-1/2 w-[180px] -translate-x-1/2">
-          <SelectValue defaultValue={type} placeholder="Type" />
+          <SelectValue placeholder="Type" />
         </SelectTrigger>
         <SelectContent>
           {ImageViewerComponentType.map((value) => (
