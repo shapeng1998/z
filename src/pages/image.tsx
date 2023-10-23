@@ -9,7 +9,7 @@ const Layout = ({ children }: { children?: React.ReactNode }) => {
 
 const ImageContainer = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div className="grid h-[600px] max-w-sm place-items-center overflow-hidden rounded-xl border border-solid border-slate-200">
+    <div className="grid h-[600px] w-96 place-items-center overflow-hidden rounded-xl border border-solid border-slate-200">
       {children}
     </div>
   );
