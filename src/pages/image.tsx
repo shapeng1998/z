@@ -1,7 +1,7 @@
-import ImageViewer from '@/components/ImageViewer';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import testImage from '@/assets/img.jpg';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import ImageViewer, { ImageViewerComponentMap, ImageViewerProps } from '@/components/ImageViewer';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
   return <div className="grid h-screen w-screen place-items-center">{children}</div>;
@@ -15,22 +15,30 @@ const ImageContainer = ({ children }: { children?: React.ReactNode }) => {
   );
 };
 
+const ImageViewerComponentType = Object.keys(ImageViewerComponentMap);
+
 export const ImagePage = () => {
+  const [type, setType] = useState<ImageViewerProps['type']>('vanilla-react');
+
+  const handleTypeValueChange = useCallback((value: ImageViewerProps['type']) => {
+    setType(value);
+  }, []);
+
   return (
     <Layout>
       <ImageContainer>
-        <ImageViewer src={testImage} type="vanilla-react" />
-        <Select>
-          <SelectTrigger className="absolute left-1/2 w-[180px] -translate-x-1/2">
-            <SelectValue placeholder="Theme" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
-          </SelectContent>
-        </Select>
+        <ImageViewer src={testImage} type={type} />
       </ImageContainer>
+      <Select onValueChange={handleTypeValueChange}>
+        <SelectTrigger className="absolute bottom-24 left-1/2 w-[180px] -translate-x-1/2">
+          <SelectValue defaultValue={type} placeholder="Type" />
+        </SelectTrigger>
+        <SelectContent>
+          {ImageViewerComponentType.map((value) => (
+            <SelectItem value={value}>{value}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </Layout>
   );
 };
