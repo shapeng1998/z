@@ -88,7 +88,10 @@ export const ImageViewerWithVanillaReact = ({ src }: Omit<ImageViewerProps, 'typ
 
   return (
     <img
-      className={cn('w-full cursor-grab touch-none rounded-xl will-change-transform', dragging && 'cursor-grabbing')}
+      className={cn(
+        'h-auto w-full cursor-grab touch-none rounded-xl will-change-transform',
+        dragging && 'cursor-grabbing',
+      )}
       src={src}
       width="380"
       height="570"
