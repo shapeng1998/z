@@ -7,14 +7,14 @@ export interface ImageViewerProps {
   type: 'vanilla-react' | 'use-gesture' | 'framer-motion';
 }
 
-export const ImageViewerComponentMap: Record<ImageViewerProps['type'], typeof ImageViewerWithVanillaReact> = {
-  'vanilla-react': ImageViewerWithVanillaReact,
-  'use-gesture': ImageViewerWithUseGesture,
-  'framer-motion': ImageViewerWithFramerMotion,
-};
-
 const ImageViewer = ({ src, type }: ImageViewerProps) => {
-  const ImageViewerComponent = ImageViewerComponentMap[type];
+  let ImageViewerComponent: typeof ImageViewerWithVanillaReact | null = null;
+
+  if (type === 'vanilla-react') ImageViewerComponent = ImageViewerWithVanillaReact;
+  else if (type === 'use-gesture') ImageViewerComponent = ImageViewerWithUseGesture;
+  else if (type === 'framer-motion') ImageViewerComponent = ImageViewerWithFramerMotion;
+  else throw TypeError(`Unknown type: ${type}`);
+
   return <ImageViewerComponent src={src} />;
 };
 
