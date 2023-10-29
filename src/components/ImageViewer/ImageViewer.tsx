@@ -10,10 +10,15 @@ export interface ImageViewerProps {
 const ImageViewer = ({ src, type }: ImageViewerProps) => {
   let ImageViewerComponent: typeof ImageViewerWithVanillaReact | null = null;
 
-  if (type === 'vanilla-react') ImageViewerComponent = ImageViewerWithVanillaReact;
-  else if (type === 'use-gesture') ImageViewerComponent = ImageViewerWithUseGesture;
-  else if (type === 'framer-motion') ImageViewerComponent = ImageViewerWithFramerMotion;
-  else throw TypeError(`Unknown type: ${type}`);
+  if (type === 'vanilla-react') {
+    ImageViewerComponent = ImageViewerWithVanillaReact;
+  } else if (type === 'use-gesture') {
+    ImageViewerComponent = ImageViewerWithUseGesture;
+  } else if (type === 'framer-motion') {
+    ImageViewerComponent = ImageViewerWithFramerMotion;
+  } else {
+    throw TypeError(`Unknown type: ${type}`);
+  }
 
   return <ImageViewerComponent src={src} />;
 };
