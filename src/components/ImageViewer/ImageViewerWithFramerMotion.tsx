@@ -7,14 +7,6 @@ import { cn } from '@/lib/utils';
 export const ImageViewerWithFramerMotion = ({ src }: Omit<ImageViewerProps, 'type'>) => {
   const [dragging, setDragging] = useState(false);
 
-  const start = useCallback(() => {
-    setDragging(true);
-  }, []);
-
-  const end = useCallback(() => {
-    setDragging(false);
-  }, []);
-
   return (
     <motion.img
       className={cn(
@@ -28,8 +20,8 @@ export const ImageViewerWithFramerMotion = ({ src }: Omit<ImageViewerProps, 'typ
       drag="y"
       dragDirectionLock={true}
       dragMomentum={false}
-      onDragStart={start}
-      onDragEnd={end}
+      onDragStart={useCallback(() => setDragging(true), [])}
+      onDragEnd={useCallback(() => setDragging(false), [])}
     />
   );
 };
