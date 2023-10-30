@@ -10,6 +10,19 @@ export interface Point {
 
 type Axis = 'x' | 'y' | null;
 
+interface PointerState {
+  /** Current dragging event's `pointerId` */
+  pointerId: number | null;
+  /** Current dragging axis */
+  axis: Axis;
+  /** Initial dragging coordinates */
+  initial: Point;
+  /** Position offset when dragging */
+  offset: Point;
+  /** Position offset when not dragging */
+  pos: Point;
+}
+
 function getCurrentAxis(offset: Point, threshold = 10): Axis {
   const absDx = Math.abs(offset.x);
   const absDy = Math.abs(offset.y);
@@ -23,67 +36,80 @@ function getCurrentAxis(offset: Point, threshold = 10): Axis {
   return null;
 }
 
+function createPoint(x: number = 0, y: number = 0): Point {
+  return { x, y };
+}
+
+function createDefaultPointerState(): PointerState {
+  return {
+    pointerId: null,
+    axis: null,
+    initial: createPoint(),
+    offset: createPoint(),
+    pos: createPoint(),
+  };
+}
+
 export const ImageViewerWithVanillaReact = ({ src }: Omit<ImageViewerProps, 'type'>) => {
   const [dragging, setDragging] = useState(false);
-
-  /** Position offset when not dragging */
-  const posRef = useRef<Point>({ x: 0, y: 0 });
-
-  /** Position offset when dragging */
-  const offsetRef = useRef<Point>({ x: 0, y: 0 });
-
-  /** Initial dragging coordinates */
-  const initialRef = useRef<Point>({ x: 0, y: 0 });
-
-  /** Current dragging axis */
-  const axisRef = useRef<Axis>(null);
-
-  /** Current dragging event's `pointerId` */
-  const pointerIdRef = useRef<number | null>(null);
+  const pointerStateRef = useRef<PointerState>(createDefaultPointerState());
 
   const start = useCallback<PointerEventHandler>((e) => {
+    // Initialize pointer event
     e.preventDefault();
     e.currentTarget.setPointerCapture(e.pointerId);
-    pointerIdRef.current = e.pointerId;
-    initialRef.current = { x: e.clientX, y: e.clientY };
+
+    // Initialize pointer state
+    const pointerState = pointerStateRef.current;
+    pointerState.pointerId = e.pointerId;
+    pointerState.initial = createPoint(e.clientX, e.clientY);
   }, []);
 
   const move = useCallback<PointerEventHandler>(
     (e) => {
-      if (e.pointerId !== pointerIdRef.current) {
+      const pointerState = pointerStateRef.current;
+      const { pointerId: currentPointerId, initial, axis: currentAxis, pos } = pointerState;
+
+      // Return when wrong pointerId
+      if (e.pointerId !== currentPointerId) {
         return;
       }
 
-      const offset: Point = {
-        x: e.clientX - initialRef.current.x,
-        y: e.clientY - initialRef.current.y,
-      };
-      if (!axisRef.current) {
-        axisRef.current = getCurrentAxis(offset);
+      // Compute offset value based on initial coordinates
+      const offset = createPoint(e.clientX - initial.x, e.clientY - initial.y);
+      // Initialize current axis value
+      if (currentAxis === null) {
+        pointerState.axis = getCurrentAxis(offset);
       }
-      if (axisRef.current !== 'y') {
+      // Disable x direction
+      if (pointerState.axis !== 'y') {
         return;
       }
 
-      if (!dragging) {
+      // Update dragging state
+      if (dragging === false) {
         setDragging(true);
       }
 
-      const y = offset.y + posRef.current.y;
-      (e.currentTarget as HTMLElement).style.transform = `translateY(${y}px)`;
-
-      offsetRef.current = offset;
+      // Update translateY
+      (e.currentTarget as HTMLElement).style.transform = `translateY(${offset.y + pos.y}px)`;
+      // Update offset state
+      pointerState.offset = offset;
     },
     [dragging],
   );
 
   const end = useCallback<PointerEventHandler>(() => {
+    // Reset dragging state
     setDragging(false);
-    initialRef.current = { x: 0, y: 0 };
-    posRef.current.y += offsetRef.current.y;
-    offsetRef.current = { x: 0, y: 0 };
-    axisRef.current = null;
-    pointerIdRef.current = null;
+
+    const { pos, offset } = pointerStateRef.current;
+    pointerStateRef.current = {
+      // Reset pointer state
+      ...createDefaultPointerState(),
+      // Update position state
+      pos: createPoint(pos.x, pos.y + offset.y),
+    };
   }, []);
 
   return (
