@@ -36,7 +36,7 @@ function getCurrentAxis(offset: Point, threshold = 10): Axis {
   return null;
 }
 
-function createPoint(x: number = 0, y: number = 0): Point {
+function createPoint(x = 0, y = 0): Point {
   return { x, y };
 }
 

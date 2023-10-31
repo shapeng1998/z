@@ -1,1 +1,1 @@
-export const GamePage = () => {};
+export const GamePage = () => <></>;
