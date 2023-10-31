@@ -9,7 +9,7 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'tailwind.config.cjs', 'postcss.config.js'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   settings: { react: { version: '18.2' } },
