@@ -11,15 +11,16 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs', 'tailwind.config.cjs', 'postcss.config.js'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', 'react'],
   settings: { react: { version: '18.2' } },
-  rules: {
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-  },
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
     project: ['./tsconfig.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
+  },
+  rules: {
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react/prop-types': 'off',
   },
 };
