@@ -3,6 +3,8 @@ module.exports = {
   env: { browser: true, es2020: true },
   extends: [
     'eslint:recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:@typescript-eslint/stylistic-type-checked',
     'plugin:react/recommended',
@@ -11,8 +13,14 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs', 'tailwind.config.cjs', 'postcss.config.js'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'react'],
-  settings: { react: { version: '18.2' } },
+  plugins: ['react-refresh', 'react', 'import'],
+  settings: {
+    react: { version: '18.2' },
+    'import/resolver': {
+      typescript: true,
+      node: true,
+    },
+  },
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -22,5 +30,9 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react/prop-types': 'off',
+    '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
+    'import/default': 'off',
+    'import/no-named-as-default-member': 'off',
+    'import/order': 'error',
   },
 };

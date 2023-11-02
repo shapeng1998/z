@@ -1,6 +1,6 @@
-import { useState, useRef, type PointerEventHandler, useCallback } from 'react';
+import { useState, useRef, useCallback, type PointerEventHandler } from 'react';
 
-import { ImageViewerProps } from './ImageViewer';
+import { type ImageViewerProps } from './ImageViewer';
 import { cn } from '@/lib/utils';
 
 export interface Point {
