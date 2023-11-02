@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, type PointerEventHandler } from 'react';
+import { type PointerEventHandler, useCallback, useRef, useState } from 'react';
 
 import { type ImageViewerProps } from './ImageViewer';
 import { cn } from '@/lib/utils';
