@@ -1,17 +1,8 @@
 import { type ReactNode, useCallback, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ImageViewer, { type ImageViewerProps } from '@/components/ImageViewer';
+import FullScreenFlexCenterLayout from '@/components/FullScreenFlexCenterLayout';
 import testImage from '@/assets/test.webp';
-import { cn } from '@/lib/utils';
-
-interface LayoutProps {
-  className?: string;
-  children?: ReactNode;
-}
-
-const Layout = ({ children, className }: LayoutProps) => {
-  return <div className={cn('flex h-screen w-screen flex-col items-center justify-center', className)}>{children}</div>;
-};
 
 const ImageContainer = ({ children }: { children?: ReactNode }) => {
   return (
@@ -29,10 +20,13 @@ export const ImagePage = () => {
   }, []);
 
   return (
-    <Layout className="gap-2">
+    <FullScreenFlexCenterLayout className="gap-2">
+      {/* Draggable image */}
       <ImageContainer>
         <ImageViewer src={testImage} type={type} />
       </ImageContainer>
+
+      {/* Select which framework type */}
       <Select onValueChange={handleTypeValueChange} defaultValue={type}>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Type" />
@@ -45,6 +39,6 @@ export const ImagePage = () => {
           ))}
         </SelectContent>
       </Select>
-    </Layout>
+    </FullScreenFlexCenterLayout>
   );
 };
