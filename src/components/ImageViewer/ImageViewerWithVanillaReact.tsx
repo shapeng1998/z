@@ -55,7 +55,7 @@ export const ImageViewerWithVanillaReact = ({ src }: Omit<ImageViewerProps, 'typ
   const [dragging, setDragging] = useState(false);
   const pointerStateRef = useRef<PointerState>(createDefaultPointerState());
 
-  const start = useCallback<PointerEventHandler>((e) => {
+  const start = useCallback<PointerEventHandler<HTMLImageElement>>((e) => {
     // Initialize pointer event
     e.preventDefault();
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -66,7 +66,7 @@ export const ImageViewerWithVanillaReact = ({ src }: Omit<ImageViewerProps, 'typ
     pointerState.initial = createPoint(e.clientX, e.clientY);
   }, []);
 
-  const move = useCallback<PointerEventHandler>(
+  const move = useCallback<PointerEventHandler<HTMLImageElement>>(
     (e) => {
       const pointerState = pointerStateRef.current;
       const { pointerId: currentPointerId, initial, axis: currentAxis, pos } = pointerState;
@@ -100,7 +100,7 @@ export const ImageViewerWithVanillaReact = ({ src }: Omit<ImageViewerProps, 'typ
     [dragging],
   );
 
-  const end = useCallback<PointerEventHandler>(() => {
+  const end = useCallback<PointerEventHandler<HTMLImageElement>>(() => {
     // Reset dragging state
     setDragging(false);
 
