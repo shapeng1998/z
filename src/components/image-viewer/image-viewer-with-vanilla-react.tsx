@@ -1,7 +1,7 @@
 import { type PointerEventHandler, useCallback, useRef, useState } from 'react';
 
-import { type ImageViewerProps } from './ImageViewer';
-import { AXIS_THRESHOLD } from './ImageViewer.constants';
+import { type ImageViewerProps } from './image-viewer';
+import { AXIS_THRESHOLD } from './image-viewer.constants';
 import { cn } from '@/lib/utils';
 
 export interface Point {

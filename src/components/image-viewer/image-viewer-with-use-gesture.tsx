@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDrag } from '@use-gesture/react';
 
-import { type ImageViewerProps } from './ImageViewer';
+import { type ImageViewerProps } from './image-viewer';
 import { cn } from '@/lib/utils';
 
 export const ImageViewerWithUseGesture = ({ src }: Omit<ImageViewerProps, 'type'>) => {

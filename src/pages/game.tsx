@@ -1,4 +1,4 @@
-import FullScreenFlexCenterLayout from '@/components/FullScreenFlexCenterLayout';
+import FullScreenFlexCenterLayout from '@/components/full-screen-flex-center';
 
 export const GamePage = () => {
   return <FullScreenFlexCenterLayout></FullScreenFlexCenterLayout>;

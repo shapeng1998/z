@@ -1,6 +1,6 @@
-import { ImageViewerWithFramerMotion } from './ImageViewerWithFramerMotion';
-import { ImageViewerWithUseGesture } from './ImageViewerWithUseGesture';
-import { ImageViewerWithVanillaReact } from './ImageViewerWithVanillaReact';
+import { ImageViewerWithFramerMotion } from './image-viewer-with-framer-motion';
+import { ImageViewerWithUseGesture } from './image-viewer-with-use-gesture';
+import { ImageViewerWithVanillaReact } from './image-viewer-with-vanilla-react';
 
 export interface ImageViewerProps {
   src: string;
