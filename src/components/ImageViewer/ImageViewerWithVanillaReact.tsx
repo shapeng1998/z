@@ -1,6 +1,7 @@
 import { type PointerEventHandler, useCallback, useRef, useState } from 'react';
 
 import { type ImageViewerProps } from './ImageViewer';
+import { AXIS_THRESHOLD } from './ImageViewer.constants';
 import { cn } from '@/lib/utils';
 
 export interface Point {
@@ -23,7 +24,7 @@ interface PointerState {
   pos: Point;
 }
 
-function getCurrentAxis(offset: Point, threshold = 10): Axis {
+function getCurrentAxis(offset: Point, threshold = AXIS_THRESHOLD): Axis {
   const absDx = Math.abs(offset.x);
   const absDy = Math.abs(offset.y);
 
