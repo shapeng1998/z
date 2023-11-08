@@ -1,28 +1,9 @@
-import { styled } from 'styled-components';
-
-interface BoardProps {
-  size: number;
-  borderRadius: string;
-}
-
-const Board = ({ size = 4 }: BoardProps) => {
+export const Board = () => {
   return (
-    <div className="grid grid-cols-4">
-      {Array.from({ length: size * size }, (_, index) => (
-        <BoardItem key={index} className=""></BoardItem>
+    <div className="grid grid-cols-4 gap-2 p-2">
+      {Array.from({ length: 16 }, (_, index) => (
+        <div key={index} className="h-10 w-10 bg-slate-300"></div>
       ))}
     </div>
   );
 };
-
-interface BoardItemProps {
-  width: string;
-}
-
-const BoardItem = styled.div<BoardItemProps>`
-  background-color: 'red';
-  width: ${(props) => props.width};
-  height: ${(props) => props.width};
-`;
-
-export default Board;

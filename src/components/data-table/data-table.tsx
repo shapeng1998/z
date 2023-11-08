@@ -6,7 +6,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export default function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export const DataTable = <TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) => {
   const table = useReactTable({
     data,
     columns,
@@ -49,4 +49,4 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
       </Table>
     </div>
   );
-}
+};
