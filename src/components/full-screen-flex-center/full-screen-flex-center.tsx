@@ -6,8 +6,6 @@ interface FullScreenFlexCenterLayoutProps {
   children?: ReactNode;
 }
 
-const FullScreenFlexCenterLayout = ({ children, className }: FullScreenFlexCenterLayoutProps) => {
+export const FullScreenFlexCenterLayout = ({ children, className }: FullScreenFlexCenterLayoutProps) => {
   return <div className={cn('flex h-screen w-screen flex-col items-center justify-center', className)}>{children}</div>;
 };
-
-export default FullScreenFlexCenterLayout;

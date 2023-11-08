@@ -7,7 +7,7 @@ export interface ImageViewerProps {
   type: 'vanilla-react' | 'use-gesture' | 'framer-motion';
 }
 
-const ImageViewer = ({ src, type }: ImageViewerProps) => {
+export const ImageViewer = ({ src, type }: ImageViewerProps) => {
   if (type === 'vanilla-react') {
     return <ImageViewerWithVanillaReact src={src} />;
   }
@@ -18,5 +18,3 @@ const ImageViewer = ({ src, type }: ImageViewerProps) => {
     return <ImageViewerWithFramerMotion src={src} />;
   }
 };
-
-export default ImageViewer;

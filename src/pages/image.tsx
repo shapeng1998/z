@@ -1,7 +1,7 @@
 import { type ReactNode, useCallback, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import ImageViewer, { type ImageViewerProps } from '@/components/image-viewer';
-import FullScreenFlexCenterLayout from '@/components/full-screen-flex-center';
+import { ImageViewer, type ImageViewerProps } from '@/components/image-viewer';
+import { FullScreenFlexCenterLayout } from '@/components/full-screen-flex-center';
 import testImage from '@/assets/test.webp';
 
 const ImageContainer = ({ children }: { children?: ReactNode }) => {
