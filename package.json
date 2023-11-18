@@ -11,8 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@douyinfe/semi-icons": "^2.46.2",
-    "@douyinfe/semi-ui": "^2.46.2",
+    "@douyinfe/semi-icons": "^2.47.0",
+    "@douyinfe/semi-ui": "^2.47.0",
     "@radix-ui/react-select": "^2.0.0",
     "@tanstack/react-table": "^8.10.7",
     "@use-gesture/react": "^10.3.0",
@@ -39,7 +39,7 @@
     "@vitejs/plugin-react": "^4.2.0",
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
-    "eslint": "^8.53.0",
+    "eslint": "^8.54.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-react": "^7.33.2",
