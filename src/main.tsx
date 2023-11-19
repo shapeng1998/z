@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './index.css';
-import { SemiPage } from './pages/semi';
+import { ImagePage } from './pages/image';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <SemiPage />,
+    element: <ImagePage />,
   },
 ]);
 
