@@ -1,22 +1,21 @@
 import { Form, Tooltip } from '@douyinfe/semi-ui';
 import { IconHelpCircle } from '@douyinfe/semi-icons';
 import { useState } from 'react';
-import { cloneDeep } from 'lodash-es';
 
 interface FormValues {
-  username: string;
-  password: string;
-  role: 'admin' | 'user' | 'guest';
+  username?: string;
+  password?: string;
+  role?: 'admin' | 'user' | 'guest';
 }
 
 export const Test = () => {
-  const [formValues, setFormValues] = useState<FormValues>();
+  const [formValues, setFormValues] = useState<FormValues>({});
 
   const { Option } = Form.Select;
 
   return (
     <>
-      <Form<FormValues> layout="horizontal" onValueChange={(values) => setFormValues(cloneDeep(values))}>
+      <Form<FormValues> layout="horizontal" onValueChange={(values) => setFormValues({ ...values })}>
         <Form.Input showClear field="username" label="用户名" style={{ width: 80 }} />
         <Form.Input
           showClear
