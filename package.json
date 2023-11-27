@@ -20,13 +20,11 @@
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.5",
     "lodash-es": "^4.17.21",
-    "lucide-react": "^0.292.0",
+    "lucide-react": "^0.293.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
-    "styled-components": "^6.1.1",
-    "tailwind-merge": "^2.0.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",
@@ -52,7 +50,8 @@
     "prettier-plugin-tailwindcss": "^0.5.7",
     "sass": "^1.69.5",
     "tailwindcss": "^3.3.5",
-    "typed-scss-modules": "^7.1.4",
+    "tailwindcss-animate": "^1.0.7",
+    "typed-scss-modules": "^8.0.0",
     "typescript": "^5.3.2",
     "vite": "^5.0.2"
   }
