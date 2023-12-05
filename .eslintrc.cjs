@@ -32,6 +32,7 @@ module.exports = {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react/prop-types': 'off',
     '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
+    '@typescript-eslint/no-unsafe-call': 'off',
     'import/default': 'off',
     'import/no-named-as-default-member': 'off',
     'import/order': 'error',
